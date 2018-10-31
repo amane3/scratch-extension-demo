@@ -6,16 +6,16 @@ ext._getStatus = function() {
 };
 
 ext.log_test = function(str) {
-    alert(str);
+// do something
 };
 
 ext.turnOn = function(str) {
-    alert(str);
+// do something
 };
 
 
 ext.setLED = function(str) {
-    alert(str);
+// do something
 };
 
 var blocks = [
