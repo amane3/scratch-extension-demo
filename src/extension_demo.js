@@ -19,9 +19,9 @@ ext.setLED = function(str) {
 };
 
 var blocks = [
-     [' ','log','log_test'],
-     [' ','set light x:%d.rowcol y:%d.rowcol %m.ledState','setLED',1,1,'on'],
      ['h','when %m.btns button pressed','ButtonPressed','A'],
+     [' ','log','log_test'],
+     [' ','set light x:%d.rowcol y:%d.rowcol %m.ledState','setLED',1,1,'on'], 
      [' ','turn on something','turnOn'],
 
   ];
