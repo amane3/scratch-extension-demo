@@ -13,9 +13,6 @@ ext.turnOn = function(str) {
     alert(str);
 };
 
-ext.ButtonPressed = function(str) {
-    alert(str);
-};
 
 ext.setLED = function(str) {
     alert(str);
