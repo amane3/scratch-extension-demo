@@ -27,12 +27,12 @@ var blocks = [
      ['h','when %m.btns button pressed','ButtonPressed','A'],
      [' ','turn on something','turnOn'],
 
-  ]
+  ];
 
 var menus = {
-   btns:[A,B],
+   btns:['A','B'],
    rowcol:[1,2,3,4,5,"ramdom"],
-}
+};
 
 var descriptor = {
    blocks:blocks,
