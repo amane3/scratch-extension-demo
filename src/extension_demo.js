@@ -1,4 +1,7 @@
 (function(ext){
+var device = null;
+var rawData = null;
+
 
 ext._shutdown = function() {};
 ext._getStatus = function() {
