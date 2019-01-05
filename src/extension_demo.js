@@ -23,7 +23,7 @@ var potentialDevices = [];
         device = potentialDevices.shift();
         if (!device) return;
 
-        device.open({ stopBits: 0, bitRate: 38400, ctsFlowControl: 0 });
+        device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
         device.set_receive_handler(function(data) {
             //console.log('Received: ' + data.byteLength);
             if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
@@ -36,7 +36,6 @@ var potentialDevices = [];
             }
         });
 
-        // Tell the PicoBoard to send a input data every 50ms
         var pingCmd = new Uint8Array(1);
         pingCmd[0] = 1;
         poller = setInterval(function() {
