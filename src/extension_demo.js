@@ -59,7 +59,7 @@ var potentialDevices = [];
 function analogWrite(msg){
     var buf = new Uint8Array(msg);
     console.log(msg);
-    device.send(msg.buffer);
+    device.send(buf.buffer);
 }
 
 ext.log_test = function(str) {
@@ -81,6 +81,7 @@ ext.turnOff = function(str) {
 ext.blink = function(str) {
     // blink LED
     var s = 'b';
+
     return analogWrite(s);
 };
 
