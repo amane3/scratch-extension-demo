@@ -67,19 +67,20 @@ ext.log_test = function(str) {
 
 ext.turnOn = function(str) {
     // turnOn LED
-    s = "o";
+    var s = "o";
     analogWrite(s);
 };
 
 ext.turnOff = function(str) {
     // turnOff LED
-    s = "f";
+    var s = "f";
     analogWrite(s);
 };
 
 ext.blink = function(str) {
     // blink LED
-    s = "b";
+    var s = "b";
+    console.log(s);
     analogWrite(s);
 };
 
