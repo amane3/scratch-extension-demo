@@ -57,8 +57,8 @@ var potentialDevices = [];
     };
 
 function analogWrite(msg){
+    var buf = new Uint8Array(s);
     device.send(msg.buffer);
-    console.log(msg);
 }
 
 ext.log_test = function(str) {
@@ -67,24 +67,22 @@ ext.log_test = function(str) {
 
 ext.turnOn = function(str) {
     // turnOn LED
-    var s = 'o';
-    var buf = new Buffer(s);
-    console.log(buf);
-    device.write(s.buffer);
+    var s = "o";
+    return analogWrite(s);
 };
 
 ext.turnOff = function(str) {
     // turnOff LED
     var s = "f";
     console.log(s);
-    device.write(s.buffer);
+    return analogWrite(s);
 };
 
 ext.blink = function(str) {
     // blink LED
     var s = "b";
     console.log(s);
-    device.write(s.buffer);
+    return analogWrite(s);
 };
 
 
