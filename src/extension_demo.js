@@ -58,7 +58,7 @@ var potentialDevices = [];
 
 function analogWrite(msg){
     console.log(msg);
-    device.emit(msg+"\n");
+    device.write(new Buffer(msg+"\n"),'ascii');
 }
 
 ext.log_test = function(str) {
