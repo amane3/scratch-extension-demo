@@ -26,7 +26,7 @@ var potentialDevices = [];
         device = potentialDevices.shift();
         if (!device) return;
 
-        device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 },deviceOpened);
+        device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
         device.set_receive_handler(function(data) {
             //console.log('Received: ' + data.byteLength);
             if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
@@ -57,10 +57,10 @@ var potentialDevices = [];
     };
 
 function analogWrite(msg){
-    var num = (msg >> 0) & 0x01; 
-    var buf = new Uint8Array(num);
-    console.log(msg);
-    device.write(buf);
+    var num = msg; 
+    var buf = new Uint8Array(1);
+    buf[0] = 1;
+    device.send(buf);
 }
 
 ext.log_test = function(str) {
