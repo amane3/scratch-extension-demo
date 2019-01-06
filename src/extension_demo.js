@@ -68,19 +68,22 @@ ext.log_test = function(str) {
 ext.turnOn = function(str) {
     // turnOn LED
     var s = "o";
-    device.send(s.buffer);
+    var buf = new Buffer(s);
+    device.send(buf.buffer);
 };
 
 ext.turnOff = function(str) {
     // turnOff LED
     var s = "f";
-    device.send(s.buffer);
+    var buf = new Buffer(s);
+    device.send(buf.buffer);
 };
 
 ext.blink = function(str) {
     // blink LED
     var s = "b";
-    device.send(s.buffer);
+    var buf = new Buffer(s);
+    device.send(buf.buffer);
 };
 
 
