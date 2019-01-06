@@ -58,7 +58,7 @@ var potentialDevices = [];
 
 function analogWrite(msg){
     console.log(msg);
-    device.write(msg.buffer);
+    device.send(1);
 }
 
 ext.log_test = function(str) {
