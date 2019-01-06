@@ -57,7 +57,7 @@ var potentialDevices = [];
     };
 
 function analogWrite(msg){
-    var buf = new buffer([msg]);
+    var buf = new Buffer(msg);
     console.log(msg);
     device.write(buf);
 }
