@@ -26,7 +26,7 @@ var potentialDevices = [];
         device = potentialDevices.shift();
         if (!device) return;
 
-        device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
+        device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 },deviceOpened);
         device.set_receive_handler(function(data) {
             //console.log('Received: ' + data.byteLength);
             if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
