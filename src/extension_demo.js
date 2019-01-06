@@ -56,12 +56,31 @@ var potentialDevices = [];
         }, 250);
     };
 
+function analogWrite(val){
+    var msg = new Uint8Array(val);
+    device.send(msg.buffer);
+}
+
 ext.log_test = function(str) {
 // do something
 };
 
 ext.turnOn = function(str) {
-// do something
+    // turnOn LED
+    s = "o";
+    analogWrite(s);
+};
+
+ext.turnOff = function(str) {
+    // turnOff LED
+    s = "f";
+    analogWrite(s);
+};
+
+ext.blink = function(str) {
+    // blink LED
+    s = "b";
+    analogWrite(s);
 };
 
 
@@ -73,7 +92,9 @@ var blocks = [
      ['h','when %m.btns button pressed','ButtonPressed','A'],
      [' ','log','log_test'],
      [' ','set light x:%d.rowcol y:%d.rowcol %m.ledState','setLED',1,1,'on'], 
-     [' ','turn on something','turnOn'],
+     [' ','turn on LED','turnOn'],
+     [' ','turn off LED','turnOff'],
+     [' ','Blink LED','blink'],
 
   ];
 
