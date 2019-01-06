@@ -68,6 +68,7 @@ ext.log_test = function(str) {
 ext.turnOn = function(str) {
     // turnOn LED
     var s = "o";
+    console.log(s);
     var buf = new Buffer(s);
     device.send(buf.buffer);
 };
@@ -75,6 +76,7 @@ ext.turnOn = function(str) {
 ext.turnOff = function(str) {
     // turnOff LED
     var s = "f";
+    console.log(s);
     var buf = new Buffer(s);
     device.send(buf.buffer);
 };
@@ -82,6 +84,7 @@ ext.turnOff = function(str) {
 ext.blink = function(str) {
     // blink LED
     var s = "b";
+    console.log(s);
     var buf = new Buffer(s);
     device.send(buf.buffer);
 };
