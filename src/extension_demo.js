@@ -10,9 +10,11 @@ function ascii(a){
 //sending buffer to board
 function analogWrite(msg){
     console.log(msg);
-    var buf = new Uint8Array(1);
+    var buf = new Uint8Array(2);
     buf[0] = ascii(msg);
+    buf[1] = ascii("\n");
     console.log(buf[0]);
+    console.log(buf[1]);
     device.send(buf.buffer);
 }
 
@@ -34,7 +36,7 @@ ext.turnOff = function(str) {
 
 ext.blink = function(str) {
     // blink LED
-    var s = "b\n";
+    var s = "b";
     return analogWrite(s);
 };
 
