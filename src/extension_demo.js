@@ -66,6 +66,7 @@ function analogWrite(msg){
     console.log(msg);
     var buf = new Uint8Array(1);
     buf[0] = ascii(msg);
+    console.log(buf[0]);
     device.send(buf.buffer);
 }
 
