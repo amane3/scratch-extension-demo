@@ -56,7 +56,7 @@ var potentialDevices = [];
         }, 250);
     };
 
-//converting strings to ascii
+//converting string to ascii
 function ascii (a){
     return a.charCodeAt(0)&255; 
 }
