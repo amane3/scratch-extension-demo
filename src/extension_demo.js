@@ -88,7 +88,7 @@ ext.turnOff = function(str) {
 
 ext.blink = function(str) {
     // blink LED
-    var s = "b";
+    var s = "b\n";
     return analogWrite(s);
 };
 
