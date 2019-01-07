@@ -15,7 +15,7 @@ function analogWrite(msg){
     buf[1] = ascii("\n");
     console.log(buf[0]);
     console.log(buf[1]);
-    device.send(buf.buffer);
+    device.send("11110");
 }
 
 ext.log_test = function(str) {
