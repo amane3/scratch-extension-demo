@@ -2,8 +2,48 @@
 var device = null;
 var rawData = null;
 
+//converting string to ascii
+function ascii(a){
+    return a.charCodeAt(0)&255; 
+}
 
-ext._shutdown = function() {};
+//sending buffer to board
+function analogWrite(msg){
+    console.log(msg);
+    var buf = new Uint8Array(1);
+    buf[0] = ascii(msg);
+    console.log(buf[0]);
+    device.send(buf.buffer);
+}
+
+ext.log_test = function(str) {
+// do something
+};
+
+ext.turnOn = function(str) {
+    // turnOn LED
+    var s = "o";
+    return analogWrite(s);
+};
+
+ext.turnOff = function(str) {
+    // turnOff LED
+    var s = "f";
+    return analogWrite(s);
+};
+
+ext.blink = function(str) {
+    // blink LED
+    var s = "b\n";
+    return analogWrite(s);
+};
+
+
+ext.setLED = function(str) {
+// do something
+};
+
+
 ext._getStatus = function() {
    if(!device) return {status: 1, msg: 'Device not connected'};
    return {status: 2, msg: 'Device connected'};
@@ -56,46 +96,11 @@ var potentialDevices = [];
         }, 250);
     };
 
-//converting string to ascii
-function ascii(a){
-    return a.charCodeAt(0)&255; 
-}
-
-//sending buffer to board
-function analogWrite(msg){
-    console.log(msg);
-    var buf = new Uint8Array(1);
-    buf[0] = ascii(msg);
-    console.log(buf[0]);
-    device.send(buf);
-}
-
-ext.log_test = function(str) {
-// do something
+ext._shutdown = function() {
+    if (device) device.close();
+    device = null;
 };
 
-ext.turnOn = function(str) {
-    // turnOn LED
-    var s = "o";
-    return analogWrite(s);
-};
-
-ext.turnOff = function(str) {
-    // turnOff LED
-    var s = "f";
-    return analogWrite(s);
-};
-
-ext.blink = function(str) {
-    // blink LED
-    var s = "b\n";
-    return analogWrite(s);
-};
-
-
-ext.setLED = function(str) {
-// do something
-};
 
 var blocks = [
      ['h','when %m.btns button pressed','ButtonPressed','A'],
