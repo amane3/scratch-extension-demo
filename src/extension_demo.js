@@ -56,9 +56,15 @@ var potentialDevices = [];
         }, 250);
     };
 
+function ascii (a){
+    return a.charCodeAt(0); 
+}
+
 function analogWrite(msg){
     console.log(msg);
-    device.send(1);
+    var buf = new Uint8Array(1);
+    buf[0] = ascii(msg);
+    device.send(buf.buffer);
 }
 
 ext.log_test = function(str) {
