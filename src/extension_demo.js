@@ -56,10 +56,12 @@ var potentialDevices = [];
         }, 250);
     };
 
+//converting strings to ascii
 function ascii (a){
-    return a.charCodeAt(0); 
+    return a.charCodeAt(0)&255; 
 }
 
+//sending buffer to board
 function analogWrite(msg){
     console.log(msg);
     var buf = new Uint8Array(1);
@@ -86,7 +88,6 @@ ext.turnOff = function(str) {
 ext.blink = function(str) {
     // blink LED
     var s = "b";
-
     return analogWrite(s);
 };
 
