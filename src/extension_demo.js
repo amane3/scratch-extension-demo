@@ -57,8 +57,8 @@ var potentialDevices = [];
     };
 
 //converting string to ascii
-function ascii (a){
-    return a.charCodeAt(0); 
+function ascii(a){
+    return a.charCodeAt(0)&255; 
 }
 
 //sending buffer to board
