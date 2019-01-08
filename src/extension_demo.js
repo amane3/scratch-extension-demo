@@ -23,7 +23,7 @@ function analogWrite(msg){
     //device.send(buf.buffer);
     //var buf = Buffer.from(msg,'base64');
     console.log(device);
-    device.write(msg+"\n");
+    device.send(buf.buffer);
 }
 
 ext.log_test = function(str) {
