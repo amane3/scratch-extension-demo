@@ -15,7 +15,7 @@ function ascii(a){
 //sending buffer to board
 function analogWrite(msg){
     console.log(msg);
-    var buf = new Uint8Array([0x15,0x86]);
+    var buf = new Uint8Array([0x86,0x15]);
     //buf[0] = ascii(msg);
     //buf[1] = ascii("\n");
     //console.log(buf[0]);
