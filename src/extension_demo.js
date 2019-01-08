@@ -10,12 +10,14 @@ function ascii(a){
 //sending buffer to board
 function analogWrite(msg){
     console.log(msg);
-    var buf = new Uint8Array(2);
-    buf[0] = ascii(msg);
-    buf[1] = ascii("\n");
-    console.log(buf[0]);
-    console.log(buf[1]);
-    device.send("11110");
+    //var buf = new Uint8Array(2);
+    //buf[0] = ascii(msg);
+    //buf[1] = ascii("\n");
+    //console.log(buf[0]);
+    //console.log(buf[1]);
+    //device.send(buf.buffer);
+    var buf = Buffer.from(msg+"\n",'base64');
+    device.send_raw(buf);
 }
 
 ext.log_test = function(str) {
@@ -65,7 +67,7 @@ var potentialDevices = [];
     function tryNextDevice() {
         // If potentialDevices is empty, device will be undefined.
         // That will get us back here next time a device is connected.
-        device = potentialDevices.shift();
+        device = potentialDevices.shiaft();
         if (!device) return;
 
         device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
@@ -79,7 +81,7 @@ var potentialDevices = [];
                 processData();
                 //device.send(pingCmd.buffer);
             }
-        });
+        });p
 
         var pingCmd = new Uint8Array(1);
         pingCmd[0] = 1;
