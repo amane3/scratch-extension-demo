@@ -15,15 +15,14 @@ function ascii(a){
 //sending buffer to board
 function analogWrite(msg){
     console.log(msg);
-    //var buf = new Uint8Array([0x96,0x96,0x15]);
+    var buf = new Uint8Array([0x96,0x96,0x15]);
     //buf[0] = ascii(msg);
     //buf[1] = ascii("\n");
     //console.log(buf[0]);
     //console.log(buf[1]);
     //device.send(buf.buffer);
-    console.log(device);
-    var buf = Buffer.from(msg+"\n",'base64');
-    device.send_raw(buf);
+    //var buf = Buffer.from(msg,'base64');
+    device.send(buf.buffer);
 }
 
 ext.log_test = function(str) {
