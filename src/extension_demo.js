@@ -10,14 +10,14 @@ function ascii(a){
 //sending buffer to board
 function analogWrite(msg){
     console.log(msg);
-    //var buf = new Uint8Array(2);
-    //buf[0] = ascii(msg);
-    //buf[1] = ascii("\n");
-    //console.log(buf[0]);
-    //console.log(buf[1]);
-    //device.send(buf.buffer);
-    var buf = Buffer.from(msg+"\n",'base64');
-    device.send_raw(buf);
+    var buf = new Uint8Array(2);
+    buf[0] = ascii(msg);
+    buf[1] = ascii("\n");
+    console.log(buf[0]);
+    console.log(buf[1]);
+    device.send(buf.buffer);
+    //var buf = Buffer.from(msg+"\n",'base64');
+    //device.send_raw(buf);
 }
 
 ext.log_test = function(str) {
