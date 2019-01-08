@@ -24,6 +24,7 @@ function analogWrite(msg){
     //var buf = Buffer.from(msg,'base64');
     console.log(device);
     device.send(buf.buffer);
+    
 }
 
 ext.log_test = function(str) {
@@ -52,6 +53,8 @@ ext.blink = function(str) {
 ext.setLED = function(str) {
 // do something
 };
+
+
 
 
 var potentialDevices = [];
