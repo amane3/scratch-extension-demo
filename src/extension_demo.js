@@ -2,6 +2,11 @@
 var device = null;
 var rawData = null;
 
+ext._getStatus = function() {
+    if(!device) return {status: 1, msg: 'Device not connected'};
+    return {status: 2, msg: 'Device connected'};
+ }
+
 //converting string to ascii
 function ascii(a){
     return a.charCodeAt(0)&255; 
@@ -10,14 +15,14 @@ function ascii(a){
 //sending buffer to board
 function analogWrite(msg){
     console.log(msg);
-    var buf = new Uint8Array(2);
-    buf[0] = ascii(msg);
-    buf[1] = ascii("\n");
-    console.log(buf[0]);
-    console.log(buf[1]);
-    device.send(buf.buffer);
-    //var buf = Buffer.from(msg+"\n",'base64');
-    //device.send_raw(buf);
+    //var buf = new Uint8Array(2);
+    //buf[0] = ascii(msg);
+    //buf[1] = ascii("\n");
+    //console.log(buf[0]);
+    //console.log(buf[1]);
+    //device.send(buf.buffer);
+    var buf = Buffer.from(msg+"\n",'base64');
+    device.send_raw(buf);
 }
 
 ext.log_test = function(str) {
@@ -48,11 +53,6 @@ ext.setLED = function(str) {
 };
 
 
-ext._getStatus = function() {
-   if(!device) return {status: 1, msg: 'Device not connected'};
-   return {status: 2, msg: 'Device connected'};
-}
-
 var potentialDevices = [];
     ext._deviceConnected = function(dev) {
         potentialDevices.push(dev);
@@ -67,7 +67,7 @@ var potentialDevices = [];
     function tryNextDevice() {
         // If potentialDevices is empty, device will be undefined.
         // That will get us back here next time a device is connected.
-        device = potentialDevices.shiaft();
+        device = potentialDevices.shift();
         if (!device) return;
 
         device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
