@@ -81,7 +81,7 @@ var potentialDevices = [];
                 processData();
                 //device.send(pingCmd.buffer);
             }
-        });p
+        });
 
         var pingCmd = new Uint8Array(1);
         pingCmd[0] = 1;
