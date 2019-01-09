@@ -18,11 +18,11 @@ pingCmd[0] = 1;
 var sendAttempts = 0;
     
 function processInput(data) {
-      if (data[0] == START_MSG) {
+      if (data == START_MSG) {
           parsingMsg = false;
-          msgBytesRead = data[0];
+          msgBytesRead = data;
         }
-      console.log(data[0]);
+      console.log(data);
 }
 
     
