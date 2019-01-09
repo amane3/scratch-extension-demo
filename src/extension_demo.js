@@ -97,7 +97,6 @@ ext._deviceRemoved = function(dev) {
          Since _deviceRemoved is not
          called while using serial devices */
       if (sendAttempts >= 10) {
-          console.log("success");
         connected = false;
         device.close();
         device = null;
@@ -110,12 +109,11 @@ ext._deviceRemoved = function(dev) {
       sendAttempts++;
 
     }, 50);
-
+  };
 ext._shutdown = function() {
    if (device) device.close();
    if (poller) clearInterval(poller);
    device = null;
-  };
 };
 
 
