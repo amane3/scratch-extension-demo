@@ -88,8 +88,10 @@ ext._deviceRemoved = function(dev) {
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
     device.set_receive_handler(function(data) {
       sendAttempts = 0;
+      console.log(data);
       var inputData = new Uint8Array(data);
       processInput(inputData);
+        
     }); 
 
     poller = setInterval(function() {
@@ -108,6 +110,8 @@ ext._deviceRemoved = function(dev) {
       
       device.send(pingCmd.buffer); 
       sendAttempts++;
+        console.log(sendAttempts);
+        console.log(device);
 
     }, 50);
   };
