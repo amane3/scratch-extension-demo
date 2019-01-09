@@ -30,8 +30,8 @@ function processInput(data) {
 function analogWrite(msg){
     console.log(msg);
     var buf = new Uint8Array(2);
-    buf[0] = ANALOG_WRITE;
-    buf[1] = msg;
+    buf[0] = 2;
+    buf[1] = 0;
     //console.log(buf[0]);
     //console.log(buf[1]);
     //device.send(buf.buffer);
