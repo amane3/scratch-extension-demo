@@ -1,19 +1,30 @@
 (function(ext){
 var device = null;
 var rawData = null;
-
+var connected = false;
+var poller = null;
+var parsingMsg = false;
+var msgBytesRead = 0;
+    
 var ANALOG_WRITE = 1;
 var DIGITAL_WRITE = 2;
-
-ext._getStatus = function() {
-    if(!device) return {status: 1, msg: 'Device not connected'};
-    return {status: 2, msg: 'Device connected'};
- }
-
-//converting string to ascii
-function ascii(a){
-    return a.charCodeAt(0)&255; 
+    
+var START_MSG = 0xF0,
+    END_MSG = 0xF7;
+    
+var pingCmd = new Uint8Array(1);
+pingCmd[0] = 1;
+    
+var sendAttempts = 0;
+    
+function processInput(data) {
+      if (data[0] == START_MSG) {
+          parsingMsg = false;
+          msgBytesRead = data[0];
+        }
 }
+
+    
 
 //sending buffer to board
 function analogWrite(msg){
@@ -56,59 +67,54 @@ ext.setLED = function(str) {
 // do something
 };
 
+ext._getStatus = function() {
+    if(!device) return {status: 1, msg: 'Device not connected'};
+    return {status: 2, msg: 'Device connected'};
+};
+
+ext._deviceRemoved = function(dev) {
+    // Not currently implemented with serial devices
+};
 
 
+ var poller = null;
+  ext._deviceConnected = function(dev) {
+    sendAttempts = 0;
+    connected = true;
+    if (device) return;
+    
+    device = dev;
+    device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
+    device.set_receive_handler(function(data) {
+      sendAttempts = 0;
+      var inputData = new Uint8Array(data);
+      processInput(inputData);
+    }); 
 
-var potentialDevices = [];
-    ext._deviceConnected = function(dev) {
-        potentialDevices.push(dev);
+    poller = setInterval(function() {
 
-        if (!device) {
-            tryNextDevice();
-        }
-    }
+      /* TEMPORARY WORKAROUND
+         Since _deviceRemoved is not
+         called while using serial devices */
+      if (sendAttempts >= 10) {
+        connected = false;
+        device.close();
+        device = null;
+        rawData = null;
+        clearInterval(poller);
+        return;
+      }
+      
+      device.send(pingCmd.buffer); 
+      sendAttempts++;
 
-    var poller = null;
-    var watchdog = null;
-    function tryNextDevice() {
-        // If potentialDevices is empty, device will be undefined.
-        // That will get us back here next time a device is connected.
-        device = potentialDevices.shift();
-        if (!device) return;
-
-        device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
-        device.set_receive_handler(function(data) {
-            //console.log('Received: ' + data.byteLength);
-            if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
-            else rawData = appendBuffer(rawData, data);
-
-            if(rawData.byteLength >= 18) {
-                //console.log(rawData);
-                processData();
-                //device.send(pingCmd.buffer);
-            }
-        });
-
-        var pingCmd = new Uint8Array(1);
-        pingCmd[0] = 1;
-        poller = setInterval(function() {
-            device.send(pingCmd.buffer);
-        }, 50);
-        watchdog = setTimeout(function() {
-            // This device didn't get good data in time, so give up on it. Clean up and then move on.
-            // If we get good data then we'll terminate this watchdog.
-            clearInterval(poller);
-            poller = null;
-            device.set_receive_handler(null);
-            device.close();
-            device = null;
-            tryNextDevice();
-        }, 250);
-    };
+    }, 50);
 
 ext._shutdown = function() {
-    if (device) device.close();
-    device = null;
+   if (device) device.close();
+   if (poller) clearInterval(poller);
+   device = null;
+  };
 };
 
 
