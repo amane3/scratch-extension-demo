@@ -86,7 +86,6 @@ ext._deviceRemoved = function(dev) {
     device = dev;
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
     device.set_receive_handler(function(data) {
-      console.log("success");
       sendAttempts = 0;
       var inputData = new Uint8Array(data);
       processInput(inputData);
@@ -98,6 +97,7 @@ ext._deviceRemoved = function(dev) {
          Since _deviceRemoved is not
          called while using serial devices */
       if (sendAttempts >= 10) {
+          console.log("success");
         connected = false;
         device.close();
         device = null;
