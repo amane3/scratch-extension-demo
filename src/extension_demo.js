@@ -32,7 +32,7 @@ function analogWrite(msg){
     console.log(msg);
     var buf = new Uint8Array(2);
     buf[0] = 2;
-    buf[1] = 0;
+    buf[1] = 1;
     //console.log(buf[0]);
     //console.log(buf[1]);
     //device.send(buf.buffer);
@@ -110,8 +110,6 @@ ext._deviceRemoved = function(dev) {
       
       device.send(pingCmd.buffer); 
       sendAttempts++;
-        console.log(sendAttempts);
-        console.log(device);
 
     }, 50);
   };
