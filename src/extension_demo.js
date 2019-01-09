@@ -6,8 +6,8 @@ var poller = null;
 var parsingMsg = false;
 var msgBytesRead = 0;
     
-var ANALOG_WRITE = 1;
-var DIGITAL_WRITE = 2;
+var ANALOG_WRITE = 2;
+var DIGITAL_WRITE = 3;
     
 var START_MSG = 0xF0,
     END_MSG = 0xF7;
