@@ -22,6 +22,7 @@ function processInput(data) {
           parsingMsg = false;
           msgBytesRead = data[0];
         }
+      console.log(data[0]);
 }
 
     
