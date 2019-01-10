@@ -1,4 +1,4 @@
-<h3>Extension for scratch with arduino compatible devices</h3>
+<h3>ScratchX extension for arduino compatible devices</h3>
 
 step1 <br>
 Upload led-control.ino to your board.
