@@ -101,24 +101,6 @@ ext._deviceRemoved = function(dev) {
         
     }); 
 
-    poller = setInterval(function() {
-
-      /* TEMPORARY WORKAROUND
-         Since _deviceRemoved is not
-         called while using serial devices */
-      if (sendAttempts >= 10) {
-        connected = false;
-        device.close();
-        device = null;
-        rawData = null;
-        clearInterval(poller);
-        return;
-      }
-      
-      device.send(pingCmd.buffer); 
-      sendAttempts++;
-
-    }, 50);
   };
 ext._shutdown = function() {
    if (device) device.close();
