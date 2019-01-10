@@ -27,19 +27,6 @@ function processInput(data) {
 
     
 
-//sending buffer to board
-function analogWrite(msg){
-    console.log(msg);
-    var buf = new Uint8Array(2);
-    buf[0] = 2;
-    buf[1] = 1;
-    //console.log(buf[0]);
-    //console.log(buf[1]);
-    //device.send(buf.buffer);
-    //var buf = Buffer.from(msg,'base64');
-    console.log(device);
-    device.send(buf.buffer);
-}
 
 ext.log_test = function(str) {
 // do something
@@ -50,24 +37,23 @@ ext.turnOn = function(str) {
     var buf = new Uint8Array(2);
     buf[0] = 2;
     buf[1] = 1;
-    //console.log(buf[0]);
-    //console.log(buf[1]);
-    //device.send(buf.buffer);
-    //var buf = Buffer.from(msg,'base64');
-    console.log(device);
     device.send(buf.buffer);
 };
 
 ext.turnOff = function(str) {
     // turnOff LED
-    var s = 1;
-    return analogWrite(s);
+    var buf = new Uint8Array(2);
+    buf[0] = 2;
+    buf[1] = 0;
+    device.send(buf.buffer);
 };
 
 ext.blink = function(str) {
     // blink LED
-    var s = 2;
-    return analogWrite(s);
+    var buf = new Uint8Array(2);
+    buf[0] = 2;
+    buf[1] = 2;
+    device.send(buf.buffer);
 };
 
 
