@@ -47,8 +47,15 @@ ext.log_test = function(str) {
 
 ext.turnOn = function(str) {
     // turnOn LED
-    var s = 0;
-    return analogWrite(s);
+    var buf = new Uint8Array(2);
+    buf[0] = 2;
+    buf[1] = 1;
+    //console.log(buf[0]);
+    //console.log(buf[1]);
+    //device.send(buf.buffer);
+    //var buf = Buffer.from(msg,'base64');
+    console.log(device);
+    device.send(buf.buffer);
 };
 
 ext.turnOff = function(str) {
