@@ -79,7 +79,7 @@ ext._deviceRemoved = function(dev) {
     potentialDevices.push(dev);
     sendAttempts = 0;
     connected = true;
-    device = potentialDevices.shift();
+    device = dev;
     if (device) return;
       
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
