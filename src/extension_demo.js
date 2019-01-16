@@ -78,6 +78,7 @@ ext._deviceRemoved = function(dev) {
     if (device) return;
     
     device = dev;
+    device = potentialDevices.shift();
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
     device.set_receive_handler(function(data) {
       sendAttempts = 0;
