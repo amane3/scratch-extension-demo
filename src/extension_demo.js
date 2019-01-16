@@ -5,7 +5,6 @@ var connected = false;
 var poller = null;
 var parsingMsg = false;
 var msgBytesRead = 0;
-var potentialDevices = [];
     
 var ANALOG_WRITE = 2;
 var DIGITAL_WRITE = 3;
@@ -38,7 +37,6 @@ ext.turnOn = function(str) {
     var buf = new Uint8Array(2);
     buf[0] = 2;
     buf[1] = 1;
-    console.log(device);
     device.send(buf.buffer);
 };
 
@@ -47,7 +45,6 @@ ext.turnOff = function(str) {
     var buf = new Uint8Array(2);
     buf[0] = 2;
     buf[1] = 0;
-    console.log(device);
     device.send(buf.buffer);
 };
 
@@ -76,12 +73,11 @@ ext._deviceRemoved = function(dev) {
 
  var poller = null;
   ext._deviceConnected = function(dev) {
-    potentialDevices.push(dev);
     sendAttempts = 0;
     connected = true;
-    device = dev;
     if (device) return;
-      
+    
+    device = dev;
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
     device.set_receive_handler(function(data) {
       sendAttempts = 0;
