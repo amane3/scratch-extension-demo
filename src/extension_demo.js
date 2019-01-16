@@ -38,6 +38,7 @@ ext.turnOn = function(str) {
     var buf = new Uint8Array(2);
     buf[0] = 2;
     buf[1] = 1;
+    console.log(device);
     device.send(buf.buffer);
 };
 
@@ -46,6 +47,7 @@ ext.turnOff = function(str) {
     var buf = new Uint8Array(2);
     buf[0] = 2;
     buf[1] = 0;
+    console.log(device);
     device.send(buf.buffer);
 };
 
