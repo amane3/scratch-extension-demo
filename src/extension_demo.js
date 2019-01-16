@@ -5,6 +5,7 @@ var connected = false;
 var poller = null;
 var parsingMsg = false;
 var msgBytesRead = 0;
+var potentialDevices = [];
     
 var ANALOG_WRITE = 2;
 var DIGITAL_WRITE = 3;
@@ -73,11 +74,12 @@ ext._deviceRemoved = function(dev) {
 
  var poller = null;
   ext._deviceConnected = function(dev) {
+    potentialDevices.push(dev);
     sendAttempts = 0;
     connected = true;
+    device = potentialDevices.shift();
     if (device) return;
-    
-    device = dev;
+      
     device = potentialDevices.shift();
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
     device.set_receive_handler(function(data) {
