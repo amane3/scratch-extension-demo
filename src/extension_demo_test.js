@@ -32,11 +32,14 @@ ext.log_test = function(str) {
 // do something
 };
 
-ext.turnOn = function(str) {
+ext.turnOn = function(r,g,b) {
     // turnOn LED
-    var buf = new Uint8Array(2);
+    var buf = new Uint8Array(5);
     buf[0] = 2;
     buf[1] = 1;
+    buf[2] = r;
+    buf[3] = g;
+    buf[4] = b;
     device.send(buf.buffer);
 };
 
@@ -99,7 +102,7 @@ var blocks = [
      ['h','when %m.btns button pressed','ButtonPressed','A'],
      [' ','log','log_test'],
      [' ','set light x:%d.rowcol y:%d.rowcol %m.ledState','setLED',1,1,'on'], 
-     [' ','RGB%n','turn on LED','turnOn',],
+     [' ','R%n','G%n','B%n','turn on LED','turnOn',],
      [' ','turn off LED','turnOff'],
      [' ','Blink LED','blink'],
 
