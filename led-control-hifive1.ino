@@ -81,14 +81,38 @@ if(Serial.available() > 0){
           analogWrite(BLUE, 255);
         }else if(outputByte == 2){
           for(i=255;i>=0;i--){
-             analogWrite(R, i);
+             analogWrite(R, 0);
              analogWrite(G, i);
-             analogWrite(B, i);
+             analogWrite(B, 255);
              delay(3);
           }        
           for(i=0;i<=255;i++){
              analogWrite(R, i);
+             analogWrite(G, 0);
+             analogWrite(B, 255);
+             delay(3);
+          }
+          for(i=255;i>=0;i--){
+             analogWrite(R, 255);
+             analogWrite(G, 0);
+             analogWrite(B, i);
+             delay(3);
+          }
+          for(i=0;i<=255;i++){
+             analogWrite(R, 255);
              analogWrite(G, i);
+             analogWrite(B, 0);
+             delay(3);
+          }
+          for(i=255;i>=0;i--){
+             analogWrite(R, i);
+             analogWrite(G, 255);
+             analogWrite(B, 0);
+             delay(3);
+          }
+          for(i=0;i<=255;i++){
+             analogWrite(R, 0);
+             analogWrite(G, 255);
              analogWrite(B, i);
              delay(3);
           }
