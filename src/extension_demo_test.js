@@ -84,7 +84,6 @@ ext._deviceRemoved = function(dev) {
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
     device.set_receive_handler(function(data) {
       sendAttempts = 0;
-      console.log(data);
       var inputData = new Uint8Array(data);
       processInput(inputData);
         
@@ -102,7 +101,7 @@ var blocks = [
      ['h','when %m.btns button pressed','ButtonPressed','A'],
      [' ','log','log_test'],
      [' ','set light x:%d.rowcol y:%d.rowcol %m.ledState','setLED',1,1,'on'], 
-     [' ','R%n','G%n','B%n','turn on LED','turnOn',],
+     [' ','R %n G %n B %n','turn on LED','turnOn',],
      [' ','turn off LED','turnOff'],
      [' ','Blink LED','blink'],
 
