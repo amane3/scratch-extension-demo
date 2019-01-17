@@ -5,13 +5,13 @@ Input Serial for changing led functions.
 // the setup function runs once when you press reset or power the board
 void* __dso_handle;
 
+#define RED = 18;
+#define GREEN = 19;
+#define BLUE = 20;
+
 const int READ_PINS = 1;
 const int WRITE_ANALOG = 2;
 const int WRITE_DIGITAL = 3;
-
-const int RED = 18;
-const int GREEN = 19;
-const int BLUE = 20;
 
 const int START_MSG = 0;
 const int END_MSG = 0;
@@ -52,32 +52,44 @@ if(Serial.available() > 0){
           G = Serial.read();
           B = Serial.read();
           if(R<0){
-              R = 0;
-          }else if(R>255){
               R = 255;
+          }else if(R>255){
+              R = 0;
+          }else{
+              R = 255 - R;
           }
           if(G<0){
               G = 0;
           }else if(G>255){
               G = 255;
+          }else{
+              G = 255 - G;
           }
           if(B<0){
               B = 0;
           }else if(B>255){
               B = 255;
+          }else{
+              B = 255 - B;
           }
           analogWrite(RED, R);
-          analogWrite(RED, G);
-          analogWrite(RED, B);
+          analogWrite(GREEN, G);
+          analogWrite(BLUE, B);
         }else if(outputByte == 1){
-          analogWrite(LED_BUILTIN, 0);
+          analogWrite(RED, 255);
+          analogWrite(GREEN, 255);
+          analogWrite(BLUE, 255);
         }else if(outputByte == 2){
-          for(i=0;i<256;i++){
-          analogWrite(LED_BUILTIN, i);
+          for(i=255;i>=0;i--){
+          analogWrite(R, i);
+          analogWrite(G, i);
+          analogWrite(B, i);
           delay(3);
           }        
-        for(i=255;i>=0;i--){
-          analogWrite(LED_BUILTIN, i);
+        for(i=0;i<=255;i++){
+          analogWrite(R, i);
+          analogWrite(G, i);
+          analogWrite(B, i);
           delay(3);
           }
         }
