@@ -29,7 +29,8 @@ function processInput(data) {
 
 
 ext.log_test = function(str) {
-// do something
+    // log alert
+    alert(device);
 };
 
 ext.turnOn = function(r,g,b) {
@@ -118,7 +119,7 @@ var blocks = [
      [' ','set light x:%d.rowcol y:%d.rowcol %m.ledState','setLED',1,1,'on'], 
      [' ','R %n G %n B %n turn on LED','turnOn',0,0,0],
      [' ','turn off LED','turnOff'],
-     [' ','Blink LED%m.colors','blink'],
+     [' ','Blink LED%m.colors','blink','RED'],
      [' ','Changing LED colors','ChangingColor'],
   ];
 
