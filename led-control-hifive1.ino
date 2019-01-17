@@ -5,9 +5,9 @@ Input Serial for changing led functions.
 // the setup function runs once when you press reset or power the board
 void* __dso_handle;
 
-#define RED = 18;
+#define RED = 22;
 #define GREEN = 19;
-#define BLUE = 20;
+#define BLUE = 21;
 
 const int READ_PINS = 1;
 const int WRITE_ANALOG = 2;
