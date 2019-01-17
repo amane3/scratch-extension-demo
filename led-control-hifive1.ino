@@ -21,6 +21,7 @@ int outputByte;
 int i;
 int inputMsg;
 int R,G,B;
+int color;
 
 void setup() {
   pinMode(RED, OUTPUT);
@@ -45,7 +46,7 @@ if(Serial.available() > 0){
         Serial.write('0');
         
       }else if(incommingByte == WRITE_ANALOG){
-        
+        // input second byte
         outputByte = Serial.read();
         if(outputByte == 0){
           R = Serial.read();
@@ -80,40 +81,58 @@ if(Serial.available() > 0){
           analogWrite(GREEN, 255);
           analogWrite(BLUE, 255);
         }else if(outputByte == 2){
+          inputMsg = Serial.read();
+          if(inputMsg == 0){
+             color = RED;
+          }else if(inputMsg == 1){
+             color = GREEN;
+          }else{
+             color = BLUE;
+          }
+ 
+          for(i = 255;i>=0;i--){
+             analogWrite(color, i);
+             delay(3);
+          }
+          for(i = 0;i<=255;i++){
+             analogWrite(color, i);
+             delay(3);
+          }
+        }else if(outputByte == 3){
           for(i=255;i>=0;i--){
-             analogWrite(R, 0);
-             analogWrite(G, i);
-             analogWrite(B, 255);
+             analogWrite(RED, 0);
+             analogWrite(GREEN, i);
+             analogWrite(BLUE, 255);
              delay(3);
           }        
           for(i=0;i<=255;i++){
-             analogWrite(R, i);
-             analogWrite(G, 0);
-             analogWrite(B, 255);
+             analogWrite(RED, i);
+             analogWrite(GREEN, 0);
+             analogWrite(BLUE, 255);
              delay(3);
           }
           for(i=255;i>=0;i--){
-             analogWrite(R, 255);
-             analogWrite(G, 0);
-             analogWrite(B, i);
+             analogWrite(RED, 255);
+             analogWrite(GREEN, 0);
+             analogWrite(BLUE, i);
              delay(3);
           }
           for(i=0;i<=255;i++){
-             analogWrite(R, 255);
-             analogWrite(G, i);
-             analogWrite(B, 0);
+             analogWrite(RED, 255);
+             analogWrite(GREEN, i);
+             analogWrite(BLUE, 0);
              delay(3);
           }
           for(i=255;i>=0;i--){
-             analogWrite(R, i);
-             analogWrite(G, 255);
-             analogWrite(B, 0);
+             analogWrite(RED, i);
+             analogWrite(GREEN, 255);
+             analogWrite(BLUE, 0);
              delay(3);
           }
           for(i=0;i<=255;i++){
-             analogWrite(R, 0);
-             analogWrite(G, 255);
-             analogWrite(B, i);
+             analogWrite(RED, 0);
+             analogWrite(GREEN, 255);
+             analogWrite(BLUE, i);
              delay(3);
           }
         }
