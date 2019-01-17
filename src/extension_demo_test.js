@@ -51,11 +51,26 @@ ext.turnOff = function(str) {
     device.send(buf.buffer);
 };
 
-ext.blink = function(str) {
+ext.blink = function(color) {
     // blink LED
-    var buf = new Uint8Array(2);
+    var buf = new Uint8Array(3);
     buf[0] = 2;
     buf[1] = 2;
+    if(color == 'RED'){
+      buf[2] = 0;
+    }else if(color == 'GREEN'){
+      buf[2] = 1;
+    }else{
+      buf[2] = 2;
+    }
+    device.send(buf.buffer);
+};
+
+ext.ChangingColor = function(str){
+    // Changing LED colors
+    var buf = new Uint8Array(2);
+    buf[0] = 2;
+    buf[1] = 3;
     device.send(buf.buffer);
 };
 
@@ -103,13 +118,14 @@ var blocks = [
      [' ','set light x:%d.rowcol y:%d.rowcol %m.ledState','setLED',1,1,'on'], 
      [' ','R %n G %n B %n turn on LED','turnOn',0,0,0],
      [' ','turn off LED','turnOff'],
-     [' ','Blink LED','blink'],
-
+     [' ','Blink LED%m.colors','blink'],
+     [' ','Changing LED colors','ChangingColor'],
   ];
 
 var menus = {
    btns:['A','B'],
    rowcol:[1,2,3,4,5,"ramdom"],
+   colors:['RED','GREEN','BLUE'],
 };
 
 var descriptor = {
