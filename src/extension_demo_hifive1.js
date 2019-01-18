@@ -25,7 +25,13 @@ function processInput(data) {
       console.log(data);
 }
 
-    
+function numRange(num){
+      if(num<0){
+          return 0;
+      }else if(num>255){
+          return 255;
+      }
+}   
 
 
 ext.log_test = function(str) {
@@ -38,9 +44,9 @@ ext.turnOn = function(r,g,b) {
     var buf = new Uint8Array(5);
     buf[0] = 2;
     buf[1] = 1;
-    buf[2] = r;
-    buf[3] = g;
-    buf[4] = b;
+    buf[2] = numRange(r);
+    buf[3] = numRange(g);
+    buf[4] = numRange(b);
     device.send(buf.buffer);
 };
 
