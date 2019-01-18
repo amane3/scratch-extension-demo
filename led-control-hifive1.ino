@@ -1,5 +1,5 @@
 /*
-Input Serial for changing led functions.
+Input Serial for changing RGBled.
 */
 
 // the setup function runs once when you press reset or power the board
