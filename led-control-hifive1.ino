@@ -52,27 +52,6 @@ if(Serial.available() > 0){
           R = Serial.read();
           G = Serial.read();
           B = Serial.read();
-          if(R<0){
-              R = 255;
-          }else if(R>255){
-              R = 0;
-          }else{
-              R = 255 - R;
-          }
-          if(G<0){
-              G = 0;
-          }else if(G>255){
-              G = 255;
-          }else{
-              G = 255 - G;
-          }
-          if(B<0){
-              B = 0;
-          }else if(B>255){
-              B = 255;
-          }else{
-              B = 255 - B;
-          }
           analogWrite(RED, R);
           analogWrite(GREEN, G);
           analogWrite(BLUE, B);
