@@ -121,7 +121,7 @@ ext._shutdown = function() {
 
 var blocks = [
      ['h','when %m.btns button pressed','ButtonPressed','A'],
-     [' ','log','log_test'],
+     [' ','Connected Device','log_test'],
      [' ','set light x:%d.rowcol y:%d.rowcol %m.ledState','setLED',1,1,'on'], 
      [' ','R %n G %n B %n turn on LED','turnOn',0,0,0],
      [' ','turn off LED','turnOff'],
