@@ -47,6 +47,9 @@ ext.turnOn = function(r,g,b) {
     buf[2] = numRange(r);
     buf[3] = numRange(g);
     buf[4] = numRange(b);
+    console.log(buf[2]);
+    console.log(buf[3]);
+    console.log(buf[4]);
     device.send(buf.buffer);
 };
 
