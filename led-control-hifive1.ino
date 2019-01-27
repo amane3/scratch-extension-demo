@@ -48,14 +48,14 @@ if(Serial.available() > 0){
       }else if(incommingByte == WRITE_ANALOG){
         // input second byte
         outputByte = Serial.read();
-        if(outputByte == 0){
+        if(outputByte == 1){
           R = Serial.read();
           G = Serial.read();
           B = Serial.read();
           analogWrite(RED, R);
           analogWrite(GREEN, G);
           analogWrite(BLUE, B);
-        }else if(outputByte == 1){
+        }else if(outputByte == 0){
           analogWrite(RED, 255);
           analogWrite(GREEN, 255);
           analogWrite(BLUE, 255);
