@@ -68,6 +68,9 @@ if(Serial.available() > 0){
           }else{
              color = BLUE;
           }
+          analogWrite(RED, 255);
+          analogWrite(GREEN, 255);
+          analogWrite(BLUE, 255); 
  
           for(i = 255;i>=0;i--){
              analogWrite(color, i);
