@@ -30,6 +30,8 @@ function numRange(num){
           return 0;
       }else if(num>255){
           return 255;
+      }else{
+          return 255-num;
       }
 }   
 
