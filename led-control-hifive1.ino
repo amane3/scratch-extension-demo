@@ -20,7 +20,7 @@ int incommingByte=0;
 int outputByte;
 int i;
 int inputMsg;
-int R,G,B;
+int R=0,G=0,B=b;
 int color;
 
 void setup() {
@@ -49,9 +49,15 @@ if(Serial.available() > 0){
         // input second byte
         outputByte = Serial.read();
         if(outputByte == 1){
-          R = Serial.read();
-          G = Serial.read();
-          B = Serial.read();
+          R += 100*Serial.read();
+          R += 10*Serial.read();
+          R += Serial.read();
+          G+= 100*Serial.read();
+          G+= 10*Serial.read();
+          G += Serial.read();
+          B += 100*Serial.read();
+          B += 10*Serial.read();
+          B += Serial.read();
           analogWrite(RED, R);
           analogWrite(GREEN, G);
           analogWrite(BLUE, B);
