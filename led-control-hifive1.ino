@@ -5,9 +5,9 @@ Input Serial for changing RGBled.
 // the setup function runs once when you press reset or power the board
 void* __dso_handle;
 
-#define RED 22
-#define GREEN 19
-#define BLUE 21
+#define RED 6
+#define GREEN 3
+#define BLUE 5
 
 const int READ_PINS = 1;
 const int WRITE_ANALOG = 2;
