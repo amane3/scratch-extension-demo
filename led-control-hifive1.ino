@@ -50,18 +50,18 @@ if(Serial.available() > 0){
         outputByte = Serial.read();
         if(outputByte == 1){
           //turn on selected color
-          R += 100*Serial.read();
-          R += 10*Serial.read();
-          R += Serial.read();
-          G += 100*Serial.read();
-          G += 10*Serial.read();
-          G += Serial.read();
-          B += 100*Serial.read();
-          B += 10*Serial.read();
-          B += Serial.read();
-          analogWrite(RED, R);
-          analogWrite(GREEN, G);
-          analogWrite(BLUE, B);
+          for(i=0;i<3;i++){
+              int x = Serial.read();
+              int y = Serial.read();
+              int z = Serial.read();
+              if(i==0){
+                  analogWrite(RED, x*100+y*10+z);
+              }else if(i==1){
+                  analogWrite(GREEN, x*100+y*10+z);
+              }else{
+                  analogWrite(BLUE, x*100+y*10+z);
+              }
+          }
         }else if(outputByte == 0){
           // Turn off led
           analogWrite(RED, 255);
