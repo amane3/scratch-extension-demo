@@ -49,6 +49,7 @@ if(Serial.available() > 0){
         // input second byte
         outputByte = Serial.read();
         if(outputByte == 1){
+          //turn on selected color
           R += 100*Serial.read();
           R += 10*Serial.read();
           R += Serial.read();
@@ -62,10 +63,12 @@ if(Serial.available() > 0){
           analogWrite(GREEN, G);
           analogWrite(BLUE, B);
         }else if(outputByte == 0){
+          // Turn off led
           analogWrite(RED, 255);
           analogWrite(GREEN, 255);
           analogWrite(BLUE, 255);
         }else if(outputByte == 2){
+          // Blink R or G or B LED
           inputMsg = Serial.read();
           if(inputMsg == 0){
              color = RED;
@@ -87,6 +90,7 @@ if(Serial.available() > 0){
              delay(3);
           }
         }else if(outputByte == 3){
+          // Turn off LED
           for(i=255;i>=0;i--){
              analogWrite(RED, 0);
              analogWrite(GREEN, i);
