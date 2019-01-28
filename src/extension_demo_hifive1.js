@@ -46,13 +46,13 @@ ext.turnOn = function(r,g,b) {
     buf[1] = 1;
     buf[2] = Math.floor(numRange(r)/100);
     buf[3] = Math.floor((numRange(r)%100)/10);
-    buf[4] = Math.floor((numRange(r)%100)%10);
+    buf[4] = (numRange(r)%100)%10;
     buf[5] = Math.floor(numRange(g)/100);
     buf[6] = Math.floor((numRange(g)%100)/10);
-    buf[7] = Math.floor((numRange(g)%100)%10);
+    buf[7] = (numRange(g)%100)%10;
     buf[8] = Math.floor(numRange(b)/100);
     buf[9] = Math.floor((numRange(b)%100)/10);
-    buf[10] = Math.floor((numRange(b)%100)%10);
+    buf[10] = (numRange(b)%100)%10;
     console.log(buf[2]);
     console.log(buf[3]);
     console.log(buf[4]);
