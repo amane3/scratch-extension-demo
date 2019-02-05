@@ -147,57 +147,45 @@
     };
 
 
-    function tryNextDevice() {
-        // If potentialDevices is empty, device will be undefined.
-        // That will get us back here next time a device is connected.
-        device = potentialDevices.shift();
-
-        if (device) {
-            device.open({stopBits: 0, bitRate: 9600, ctsFlowControl: 0}, deviceOpened);
-        }
-    }
-   
+     var poller = null;
+  ext._deviceConnected = function(dev) {
+    sendAttempts = 0;
+    connected = true;
+    if (device) return;
     
-      var poller = null;
-      var watchdog = null;	
-      function deviceOpened(dev) {
-        if (!dev) {
-            // Opening the port failed.
-            tryNextDevice();
-            return;
-        }
-        device.set_receive_handler(function (data) {
-            //console.log('Received: ' + data.byteLength);
-            if (!rawData || rawData.byteLength == 5) {
+    device = dev;
+    device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
+    device.set_receive_handler(function(data) {
+      if (!rawData || rawData.byteLength == 5) {
                 rawData = new Uint8Array(data);
             } else {
                 rawData = appendBuffer(rawData, data);
             }
+      var inputData = new Uint8Array(data);
+      processInput(inputData);
+    }); 
 
-            if (rawData.byteLength >= 5) {
-                //console.log(rawData);
-                processData();
-                //device.send(pingCmd.buffer);
-            }
-        });
+    poller = setInterval(function() {
 
-        // Tell the PicoBoard to send a input data every 50ms
-        var pingCmd = new Uint8Array(1);
-        pingCmd[0] = 1;
-        poller = setInterval(function () {
-            device.send(pingCmd.buffer);
-        }, 50);
-        watchdog = setTimeout(function () {
-            // This device didn't get good data in time, so give up on it. Clean up and then move on.
-            // If we get good data then we'll terminate this watchdog.
-            clearInterval(poller);
-            poller = null;
-            device.set_receive_handler(null);
-            device.close();
-            device = null;
-            tryNextDevice();
-        }, 250);
-    }
+      /* TEMPORARY WORKAROUND
+         Since _deviceRemoved is not
+         called while using serial devices */
+  /*    if (sendAttempts >= 5) {
+        connected = false;
+        device.close();
+        device = null;
+        rawData = null;
+        clearInterval(poller);
+        return;
+      }
+      */
+      
+      device.send(pingCmd.buffer); 
+      sendAttempts++;
+
+    }, 50);
+
+  };
 
     ext._deviceRemoved = function (dev) {
         if (device != dev) return;
