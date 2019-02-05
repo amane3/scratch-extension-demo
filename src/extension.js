@@ -62,11 +62,14 @@
               return 255-num;
           }
     }   
-    
-    function GetValue(value){
-        return input[value];
+    //Get values from the board
+    function GetValue(){
+        var buf = new Uint8Array(1);
+	buf[0] = 1;
+	device.send(buf.buffer);
     }
-    
+	
+
     ext.log_test = function(str) {
         // log alert
         alert(device);
@@ -143,6 +146,7 @@
     };
 
     ext.Getrgb = function(str) {
+	GetValue();
 	console.log(str);
 	console.log(inputs[str]);
     }
