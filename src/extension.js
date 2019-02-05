@@ -158,6 +158,7 @@
     device = dev;
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
     device.set_receive_handler(function(data) {
+	   console.log(rawData.byteLength);
       if (!rawData || rawData.byteLength == 5) {
                 rawData = new Uint8Array(data);
             } else {
