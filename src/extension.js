@@ -63,7 +63,9 @@
           }
     }   
     
-    
+    function GetValue(value){
+        return input[value];
+    }
     
     ext.log_test = function(str) {
         // log alert
@@ -141,15 +143,15 @@
     };
 
     ext.Getrgb = function(str) {
+	console.log(str);
+	console.log(inputs["ledr"]);
         console.log(GetValue(str));
     }
     
     ext.Gettemp = function(str) {
+    // do something
     };
-    
-    function GetValue(value){
-        return input[value];
-    }
+   
     
      var poller = null;
       ext._deviceConnected = function(dev) {
