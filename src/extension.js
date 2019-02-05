@@ -16,9 +16,9 @@
     pingCmd[0] = 1;
 
     var inputs = {
-        ledr: 0,
-        ledg: 0,
-        ledb: 0,
+        "ledr": 0,
+        "ledg": 0,
+        "ledb": 0,
     };
     var names = new Array() ;
      names[0] = "ledr";
