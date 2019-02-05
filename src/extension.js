@@ -11,7 +11,8 @@
         
     var START_MSG = 0,
         END_MSG = 0;
-        
+    var pingCmd = new Uint8Array(1);
+        pingCmd[0] = 1;
 
     var inputs = {
         "ledr": 0,
