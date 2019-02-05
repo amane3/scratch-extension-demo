@@ -12,8 +12,6 @@
     var START_MSG = 0,
         END_MSG = 0;
         
-    var pingCmd = new Uint8Array(1);
-    pingCmd[0] = 1;
 
     var inputs = {
         "ledr": 0,
@@ -62,12 +60,6 @@
               return 255-num;
           }
     }   
-    //Get values from the board
-    function GetValue(){
-        var buf = new Uint8Array(1);
-	buf[0] = 1;
-	device.send(buf.buffer);
-    }
 	
 
     ext.log_test = function(str) {
@@ -146,7 +138,6 @@
     };
 
     ext.Getrgb = function(str) {
-	GetValue();
 	console.log(str);
 	console.log(inputs[str]);
     }
@@ -154,17 +145,29 @@
     ext.Gettemp = function(str) {
     // do something
     };
+
+
+    function tryNextDevice() {
+        // If potentialDevices is empty, device will be undefined.
+        // That will get us back here next time a device is connected.
+        device = potentialDevices.shift();
+
+        if (device) {
+            device.open({stopBits: 0, bitRate: 9600, ctsFlowControl: 0}, deviceOpened);
+        }
+    }
    
     
-     var poller = null;
-      ext._deviceConnected = function(dev) {
-        sendAttempts = 0;
-        connected = true;
-        if (device) return;
-        
-        device = dev;
-        device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
-        device.set_receive_handler(function(data) {
+      var poller = null;
+      var watchdog = null;	
+      function deviceOpened(dev) {
+        if (!dev) {
+            // Opening the port failed.
+            tryNextDevice();
+            return;
+        }
+        device.set_receive_handler(function (data) {
+            //console.log('Received: ' + data.byteLength);
             if (!rawData || rawData.byteLength == 5) {
                 rawData = new Uint8Array(data);
             } else {
@@ -172,13 +175,36 @@
             }
 
             if (rawData.byteLength >= 5) {
-                console.log(rawData);
-                processInput();
+                //console.log(rawData);
+                processData();
                 //device.send(pingCmd.buffer);
             }
-        }); 
-    
-      };
+        });
+
+        // Tell the PicoBoard to send a input data every 50ms
+        var pingCmd = new Uint8Array(1);
+        pingCmd[0] = 1;
+        poller = setInterval(function () {
+            device.send(pingCmd.buffer);
+        }, 50);
+        watchdog = setTimeout(function () {
+            // This device didn't get good data in time, so give up on it. Clean up and then move on.
+            // If we get good data then we'll terminate this watchdog.
+            clearInterval(poller);
+            poller = null;
+            device.set_receive_handler(null);
+            device.close();
+            device = null;
+            tryNextDevice();
+        }, 250);
+    }
+
+    ext._deviceRemoved = function (dev) {
+        if (device != dev) return;
+        if (poller) poller = clearInterval(poller);
+        device = null;
+    };
+
     ext._shutdown = function() {
        if (device) device.close();
        if (poller) clearInterval(poller);
