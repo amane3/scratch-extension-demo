@@ -161,8 +161,11 @@
             } else {
                 rawData = appendBuffer(rawData, data);
             }
-      var inputData = new Uint8Array(data);
-      processInput(inputData);
+      if (rawData.byteLength >= 5) {
+                //console.log(rawData);
+                processInput();
+                //device.send(pingCmd.buffer);
+            }
     }); 
 
     poller = setInterval(function() {
