@@ -144,8 +144,7 @@
 
     ext.Getrgb = function(str) {
 	console.log(str);
-	console.log(inputs["ledr"]);
-        console.log(GetValue(str));
+	console.log(inputs[str]);
     }
     
     ext.Gettemp = function(str) {
@@ -169,7 +168,7 @@
             }
 
             if (rawData.byteLength >= 5) {
-                //console.log(rawData);
+                console.log(rawData);
                 processInput();
                 //device.send(pingCmd.buffer);
             }
