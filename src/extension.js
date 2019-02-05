@@ -192,7 +192,7 @@
          ['r','Get tilt %m.dirs','Gettilt','any'],
          ['b','is%m.dirs?','isTilted','any'],
          ['r','Get temperture','Gettemp'],
-         ['r','Get LED Value %m.RGB','Getrgb','ledr'],
+         [' ','Get LED Value %m.RGB','Getrgb','ledr'],
       ];
     
     var menus = {
