@@ -33,6 +33,7 @@
     }
         
     function processInput() {
+	console.log("receiving");
         var bytes = new Uint8Array(rawData);
         for (var i=0; i < bytes.length; i++) {
             if (parsingMsg) {
