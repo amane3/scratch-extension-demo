@@ -139,7 +139,7 @@
     };
 	
     ext.Gettiltx = function(str) {
-    // do something
+    	device.send(pingCmd.buffer);
     };
 	
     ext.Gettilty = function(str) {
@@ -167,10 +167,11 @@
     if (device) return;
     
     device = dev;
-    device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
-    device.set_receive_handler(function(data) {
-      rawData = new Uint8Array(data);
-      processInput();
+    device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 }, function(){
+        device.set_receive_handler(function(data) {
+     	 rawData = new Uint8Array(data);
+    	  processInput();
+       });  
     }); 
 
     poller = setInterval(function() {
@@ -188,7 +189,6 @@
       }
       */
       
-      device.send(pingCmd.buffer); 
       sendAttempts++;
 
     }, 50);
