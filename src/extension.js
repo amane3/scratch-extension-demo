@@ -34,17 +34,16 @@
         
     function processInput() {
 	console.log("receiving");
-        var bytes = new Uint8Array(rawData);
-        for (var i=0; i < bytes.length; i++) {
+        for (var i=0; i < rawData.length; i++) {
             if (parsingMsg) {
-              if (bytes[i] == END_MSG) {
+              if (rawData[i] == END_MSG) {
                 parsingMsg = false;
                 processMsg();
               }else{
-		inputs[name[i-1]] = bytes[i];
+		inputs[name[i-1]] = rawData[i];
               }
             } else {
-              if (bytes[i] == START_MSG) {
+              if (rawData[i] == START_MSG) {
                 parsingMsg = true;
                 msgBytesRead = 0;
               }
@@ -158,8 +157,8 @@
     device = dev;
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 });
     device.set_receive_handler(function(data) {
-      var inputData = new Uint8Array(data);
-      processInput(inputData);
+      rawData = new Uint8Array(data);
+      processInput();
     }); 
 
     poller = setInterval(function() {
