@@ -42,6 +42,7 @@
                 processMsg();
               }else{
 		inputs[name[i-1]] = rawData[i];
+		console.log(rawData[i]);
               }
             } else {
               if (rawData[i] == START_MSG) {
