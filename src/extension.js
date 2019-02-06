@@ -28,7 +28,7 @@
 
     function processMsg(){
         for(var i=0; i < 3; i++){
-            input[name[i]] = input[name[i]]*5/255;
+            inputs[name[i]] = inputs[name[i]]*5/255;
 	}
     }
         
