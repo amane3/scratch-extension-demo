@@ -139,7 +139,6 @@
     };
 	
     ext.Gettiltx = function(str) {
-    	device.send(pingCmd.buffer);
     };
 	
     ext.Gettilty = function(str) {
@@ -190,8 +189,8 @@
       */
       
       sendAttempts++;
-
-    }, 50);
+      device.send(pingCmd.buffer);
+    }, 1000);
 
   };
 
