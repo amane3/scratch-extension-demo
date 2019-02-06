@@ -33,7 +33,7 @@
     }
         
     function processInput() {
-	console.log("receiving");
+	console.log(rawData.length);
         for (var i=0; i < rawData.length; i++) {
             if (parsingMsg) {
               if (rawData[i] == END_MSG) {
@@ -47,6 +47,7 @@
             } else {
               if (rawData[i] == START_MSG) {
                 parsingMsg = true;
+		console.log(rawData[i]);
                 msgBytesRead = 0;
               }
             }
