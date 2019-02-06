@@ -137,6 +137,10 @@
     ext.whenTilted = function(str) {
     // do something
     };
+	
+    ext.Gettilt = function(str) {
+    // do something
+    };
 
     ext.Getrgb = function(str) {
 	console.log(str);
@@ -206,7 +210,7 @@
          ['h', 'when tilted %m.dirs', 'whenTilted', 'any'],
          ['r','Get tilt %m.dirs','Gettilt','any'],
          ['b','is%m.dirs?','isTilted','any'],
-         ['r','Get temperture','Gettemp'],
+         ['r','Get temperature','Gettemp'],
          [' ','Get LED Value %m.RGB','Getrgb','ledr'],
       ];
     
