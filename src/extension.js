@@ -175,10 +175,10 @@
 
             if(rawData.byteLength >= 5) {
                 //console.log(rawData);
-                processData();
+                processInput();
                 //device.send(pingCmd.buffer);
             }
-    	  processInput();
+    	  
        });  
     }); 
 
