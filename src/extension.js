@@ -166,6 +166,13 @@
     sendAttempts = 0;
     connected = true;
     if (device) return;
+	  
+    function appendBuffer( buffer1, buffer2 ) {
+        var tmp = new Uint8Array( buffer1.byteLength + buffer2.byteLength );
+        tmp.set( new Uint8Array( buffer1 ), 0 );
+        tmp.set( new Uint8Array( buffer2 ), buffer1.byteLength );
+        return tmp.buffer;
+    }
     
     device = dev;
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 }, function(){
