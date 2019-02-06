@@ -38,7 +38,7 @@
             if (parsingMsg) {
               if (rawData[i] == END_MSG) {
                 parsingMsg = false;
-		console.log("END");
+		console.log(rawData[i]);
                 processMsg();
               }else{
 		inputs[name[i-1]] = rawData[i];
