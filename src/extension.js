@@ -170,7 +170,14 @@
     device = dev;
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 }, function(){
         device.set_receive_handler(function(data) {
-     	 rawData = new Uint8Array(data);
+	 if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
+            else rawData = appendBuffer(rawData, data);
+
+            if(rawData.byteLength >= 18) {
+                //console.log(rawData);
+                processData();
+                //device.send(pingCmd.buffer);
+            }
     	  processInput();
        });  
     }); 
