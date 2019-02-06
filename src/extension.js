@@ -9,8 +9,8 @@
     var ANALOG_WRITE = 2;
     var DIGITAL_WRITE = 3;
         
-    var START_MSG = 0,
-        END_MSG = 0;
+    var START_MSG = 0xF0,
+        END_MSG = 0xF7;
     var pingCmd = new Uint8Array(1);
         pingCmd[0] = 1;
 
