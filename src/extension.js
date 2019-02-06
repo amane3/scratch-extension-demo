@@ -138,7 +138,15 @@
     // do something
     };
 	
-    ext.Gettilt = function(str) {
+    ext.Gettiltx = function(str) {
+    // do something
+    };
+	
+    ext.Gettilty = function(str) {
+    // do something
+    };
+	
+    ext.Gettiltz = function(str) {
     // do something
     };
 
@@ -208,7 +216,9 @@
          [' ','Blink LED%m.colors','blink','RED'],
          [' ','Changing LED colors','ChangingColor'],
          ['h', 'when tilted %m.dirs', 'whenTilted', 'any'],
-         ['r','Get tilt %m.dirs','Gettilt','any'],
+         ['r','Get tilt X','Gettiltx'],
+	 ['r','Get tilt Y','Gettilty'],
+	 ['r','Get tilt Z','Gettiltz'],
          ['b','is%m.dirs?','isTilted','any'],
          ['r','Get temperature','Gettemp'],
          [' ','Get LED Value %m.RGB','Getrgb','ledr'],
