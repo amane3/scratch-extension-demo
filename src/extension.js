@@ -15,21 +15,14 @@
         pingCmd[0] = 1;
 
     var inputs = {
-        "ledr": 0,
-        "ledg": 0,
-        "ledb": 0,
+        "temp": 0,
     };
     var names = new Array() ;
-     names[0] = "ledr";
-     names[1] = "ledg";
-     names[2] = "ledb";
+     names[0] = "temp";
 
     inputArray = [];
 
     function processMsg(){
-        for(var i=0; i < 3; i++){
-            inputs[name[i]] = inputs[name[i]]*5/255;
-	}
     }
         
     function processInput() {
@@ -39,7 +32,6 @@
               if (rawData[i] == END_MSG) {
                 parsingMsg = false;
 		console.log(rawData[i]);
-                processMsg();
               }else{
 		inputs[name[i-1]] = rawData[i];
 		console.log(rawData[i]);
@@ -153,12 +145,11 @@
     };
 
     ext.Getrgb = function(str) {
-	console.log(str);
-	console.log(inputs[str]);
     }
     
-    ext.Gettemp = function(str) {
-    // do something
+    ext.Gettemp = function() {
+	console.log(inputs[temp]);
+    	return inputs[temp];
     };
 
 
