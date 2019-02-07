@@ -15,7 +15,7 @@
         pingCmd[0] = 1;
 
     var inputs = {
-        "temp": 0,
+        "temp": 0
     };
     var names = new Array() ;
      names[0] = "temp";
@@ -33,7 +33,7 @@
                 parsingMsg = false;
 		console.log(rawData[i]);
               }else{
-		inputs[name[i-1]] = rawData[i];
+		inputs["temp"]] = rawData[i];
 		console.log(rawData[i]);
               }
             } else {
