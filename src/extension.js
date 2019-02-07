@@ -149,6 +149,18 @@
     	return inputs["temp"];
     };
 
+    ext.isTemp = function(num) {
+    	return inputs["temp"] === num;
+    };
+	
+    ext.isTemplow = function(num) {
+    	return inputs["temp"] < num;
+    };
+	
+    ext.isTemphigh = function(num) {
+    	return inputs["temp"] > num;
+    };
+
 
      var poller = null;
   ext._deviceConnected = function(dev) {
@@ -220,11 +232,14 @@
          [' ','Blink LED%m.colors','blink','RED'],
          [' ','Changing LED colors','ChangingColor'],
          ['h', 'when tilted %m.dirs', 'whenTilted', 'any'],
+	 ['b','is temp %n','isTemp',1],
+	 ['b','is temp < %n','isTemplow',1],
+	 ['b','is temp > %n','isTemphigh',1],
+	 ['r','Get temperature','Gettemp'],
          ['r','Get tilt X','Gettiltx'],
 	 ['r','Get tilt Y','Gettilty'],
 	 ['r','Get tilt Z','Gettiltz'],
-         ['b','is%m.dirs?','isTilted','any'],
-         ['r','Get temperature','Gettemp'],
+         ['b','is%m.dirs?','isTilted','any'], 
          [' ','Get LED Value %m.RGB','Getrgb','ledr'],
       ];
     
