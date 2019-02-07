@@ -45,14 +45,14 @@ void setup() {
   Wire.endTransmission();
   Wire.beginTransmission(LM75_address);
   Wire.write(Temp_pointer);
-  Wire.endTransmission;
+  Wire.endTransmission();
 }
 
 
 void loop(){
 
 if(Serial.available() > 0){
-    Wire.requestForm(LM75_address, 2);
+    Wire.requestFrom(LM75_address, 2);
     float temp = ((( Wire.read() << 8) | Wire.read()) >> 5 ) * 0.125;
     temp_value = temp;
   
