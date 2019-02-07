@@ -6,18 +6,22 @@
     var parsingMsg = false;
     var msgBytesRead = 0;
         
+    var READ_PIN = 1;
     var ANALOG_WRITE = 2;
     var DIGITAL_WRITE = 3;
         
     var START_MSG = 0xF0,
         END_MSG = 0xF7;
+	
     var pingCmd = new Uint8Array(1);
-        pingCmd[0] = 1;
-
+        pingCmd[0] = READ_PIN;
+	
+    // put datas from board
     var inputs = {
         "temp": 0,
 	"something" :0
     };
+    // names of inputs
     var names = new Array() ;
      names[0] = "temp";
      names[1] = "something";
@@ -26,17 +30,18 @@
 
     function processMsg(){
     }
-        
+    
+    // making array of output datas
     function processInput() {
         for (var i=0; i < rawData.length; i++) {
             if (parsingMsg) {
-              if (rawData[i] == END_MSG) {
+              if (rawData[i] == END_MSG) {   // parsing ends at here
                 parsingMsg = false;
               }else{
-		inputs[names[i-1]] = rawData[i];
+		inputs[names[i-1]] = rawData[i];  // update array datas
               }
             } else {
-              if (rawData[i] == START_MSG) {
+              if (rawData[i] == START_MSG) {  // parsing starts at here
                 parsingMsg = true;
                 msgBytesRead = 0;
               }
@@ -64,7 +69,7 @@
     ext.turnOn = function(r,g,b) {
         // turnOn LED
         var buf = new Uint8Array(5);
-        buf[0] = 2;
+        buf[0] = ANALOG_WRITE;
         buf[1] = 1;
         buf[2] = Math.floor(numRange(r)/100);
         buf[3] = Math.floor((numRange(r)%100)/10);
@@ -81,7 +86,7 @@
     ext.turnOff = function(str) {
         // turnOff LED
         var buf = new Uint8Array(2);
-        buf[0] = 2;
+        buf[0] = ANALOG_WRITE;
         buf[1] = 0;
         device.send(buf.buffer);
     };
@@ -89,7 +94,7 @@
     ext.blink = function(color) {
         // blink LED
         var buf = new Uint8Array(3);
-        buf[0] = 2;
+        buf[0] = ANALOG_WRITE;
         buf[1] = 2;
         if(color == 'RED'){
           buf[2] = 0;
@@ -104,7 +109,7 @@
     ext.ChangingColor = function(str){
         // Changing LED colors
         var buf = new Uint8Array(2);
-        buf[0] = 2;
+        buf[0] = ANALOG_WRITE;
         buf[1] = 3;
         device.send(buf.buffer);
     };
@@ -180,7 +185,7 @@
         device.set_receive_handler(function(data) {
 	 if(!rawData || rawData.byteLength == 3) rawData = new Uint8Array(data);
             else rawData = appendBuffer(rawData, data);
-
+            // when rawData is added more than 3bytes processInput function is called
             if(rawData.byteLength >= 3) {
                 //console.log(rawData);
                 processInput();
@@ -191,22 +196,9 @@
     }); 
 
     poller = setInterval(function() {
-
-      /* TEMPORARY WORKAROUND
-         Since _deviceRemoved is not
-         called while using serial devices */
-  /*    if (sendAttempts >= 5) {
-        connected = false;
-        device.close();
-        device = null;
-        rawData = null;
-        clearInterval(poller);
-        return;
-      }
-      */
-      
+   
       sendAttempts++;
-      device.send(pingCmd.buffer);
+      device.send(pingCmd.buffer);  // send READ_PIN buffer every 1000ms
     }, 1000);
 
   };
@@ -256,6 +248,6 @@
     };
     
     var serial_info = {type: 'serial'};
-    ScratchExtensions.register('Hifive1', descriptor, ext, serial_info);
+    ScratchExtensions.register('Arduino', descriptor, ext, serial_info);
     
     })({});
