@@ -15,10 +15,12 @@
         pingCmd[0] = 1;
 
     var inputs = {
-        "temp": 0
+        "temp": 0,
+	"something" :0
     };
     var names = new Array() ;
      names[0] = "temp";
+     names[1] = "something";
 
     inputArray = [];
 
@@ -26,20 +28,16 @@
     }
         
     function processInput() {
-	console.log(rawData.length);
         for (var i=0; i < rawData.length; i++) {
             if (parsingMsg) {
               if (rawData[i] == END_MSG) {
                 parsingMsg = false;
-		console.log(rawData[i]);
               }else{
-		inputs["temp"] = rawData[i];
-		console.log(rawData[i]);
+		inputs[names[i-1]] = rawData[i];
               }
             } else {
               if (rawData[i] == START_MSG) {
                 parsingMsg = true;
-		console.log(rawData[i]);
                 msgBytesRead = 0;
               }
             }
@@ -148,7 +146,6 @@
     }
     
     ext.Gettemp = function() {
-	console.log(inputs["temp"]);
     	return inputs["temp"];
     };
 
