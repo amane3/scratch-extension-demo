@@ -33,7 +33,7 @@
                 parsingMsg = false;
 		console.log(rawData[i]);
               }else{
-		inputs["temp"]] = rawData[i];
+		inputs["temp"] = rawData[i];
 		console.log(rawData[i]);
               }
             } else {
