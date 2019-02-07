@@ -169,10 +169,10 @@
     device = dev;
     device.open({ stopBits: 0, bitRate: 9600, ctsFlowControl: 0 }, function(){
         device.set_receive_handler(function(data) {
-	 if(!rawData || rawData.byteLength == 5) rawData = new Uint8Array(data);
+	 if(!rawData || rawData.byteLength == 3) rawData = new Uint8Array(data);
             else rawData = appendBuffer(rawData, data);
 
-            if(rawData.byteLength >= 5) {
+            if(rawData.byteLength >= 3) {
                 //console.log(rawData);
                 processInput();
                 //device.send(pingCmd.buffer);
