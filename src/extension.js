@@ -148,8 +148,7 @@
     }
     
     ext.Gettemp = function() {
-	console.log(inputs[temp]);
-    	return inputs[temp];
+    	return inputs["temp"];
     };
 
 
