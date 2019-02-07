@@ -1,13 +1,16 @@
-/*
-Input Serial for changing RGBled.
-*/
+/*temperature sensor, RGBled*/
 
+#include <Wire.h>
 // the setup function runs once when you press reset or power the board
 void* __dso_handle;
 
 #define RED 6
 #define GREEN 3
 #define BLUE 5
+
+unsigned char LM75_address = 0x48;
+const unsigned char config_pointer = 0x01;
+const unsigned char Temp_pointer = 0x00;
 
 const int READ_PINS = 1;
 const int WRITE_ANALOG = 2;
@@ -23,9 +26,8 @@ int i;
 int inputMsg[5];
 int R=0,G=0,B=0;
 int color;
-int input_r = 0;
-int input_g = 0;
-int input_b = 0;
+float temp;
+int temp_value;
 
 void setup() {
   pinMode(RED, OUTPUT);
@@ -35,19 +37,24 @@ void setup() {
   analogWrite(GREEN, 255);
   analogWrite(BLUE, 255);
   Serial.begin(9600);
+  Wire.begin();
+  Serial.println("start");
+  Wire.beginTransmission(LM75_address); 
+  Wire.write(config_pointer);
+  Wire.write(Temp_pointer);
+  Wire.endTransmission();
+  Wire.beginTransmission(LM75_address);
+  Wire.write(Temp_pointer);
+  Wire.endTransmission;
 }
 
 
 void loop(){
 
 if(Serial.available() > 0){
-  
-  input_r = analogRead(RED);
-  input_r = map(input_r, 0 , 1023 , 0, 255);
-  input_g = analogRead(GREEN);
-  input_g = map(input_g, 0 , 1023 , 0, 255);
-  input_b = analogRead(BLUE);
-  input_b = map(input_b, 0 , 1023 , 0, 255);
+    Wire.requestForm(LM75_address, 2);
+    float temp = ((( Wire.read() << 8) | Wire.read()) >> 5 ) * 0.125;
+    temp_value = temp;
   
     // input available byte
     incommingByte = Serial.read();
@@ -55,11 +62,9 @@ if(Serial.available() > 0){
       if(incommingByte == READ_PINS){
         
         inputMsg[0] = START_MSG;
-        inputMsg[1] = input_r;
-        inputMsg[2] = input_g;
-        inputMsg[3] = input_b;
-        inputMsg[4] = END_MSG;
-        for(int i = 0; i < 5; i++){
+        inputMsg[1] = temp_value;
+        inputMsg[2] = END_MSG;
+        for(int i = 0; i < 3; i++){
           Serial.write(inputMsg[i]);  
         }
         
